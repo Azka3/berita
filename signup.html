@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .signup-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .welcome {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .input-group {
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .submit-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+
+    .back-to-login {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .back-to-login a {
+      color: #007bff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h1>Sign Up</h1>
+    <p class="welcome">Silakan buat akun baru</p>
+
+    <form class="email-form" id="signupForm">
+      <div class="input-group">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" placeholder="Enter your email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit" class="submit-btn">Sign Up</button>
+    </form>
+
+    <div class="back-to-login">
+      Sudah punya akun? <a href="index.html">Login di sini</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCBrVEGFEfY4EmiSJUpfO5yyHwRk73p_z0",
+      authDomain: "my-login-app-81311.firebaseapp.com",
+      projectId: "my-login-app-81311",
+      storageBucket: "my-login-app-81311.appspot.com",
+      messagingSenderId: "384620755011",
+      appId: "1:384620755011:web:abc123def456"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("signupForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("Pendaftaran berhasil! Silakan login.");
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          alert("Pendaftaran gagal: " + error.message);
+          console.error(error.code, error.message);
+        });
+    });
+  </script>
+</body>
+</html>
